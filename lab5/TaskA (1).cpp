@@ -14,7 +14,7 @@ int main() {
         pq.push(x);
     }
     
-    //3 5 6 9
+    
     
     while(pq.size() != 1){
         long long u = pq.top();
