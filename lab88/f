@@ -1,0 +1,25 @@
+#include <iostream>
+#include <string>
+#include <unordered_set>
+using namespace std;
+
+typedef unsigned long long ull;
+
+int main() {
+    string s;
+    cin >> s;
+    
+    unordered_set<ull> substrings;
+    
+    for (size_t i = 0; i < s.length(); i++) {
+        ull hash = 0;
+        for (size_t j = i; j < s.length(); j++) {
+            hash = hash * 131 + s[j];
+            substrings.insert(hash);
+        }
+    }
+    
+    cout << substrings.size() << endl;
+    
+    return 0;
+}
