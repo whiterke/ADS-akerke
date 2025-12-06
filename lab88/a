@@ -1,32 +1,72 @@
-import sys
+#include <bits/stdc++.h>
+#define abc ios_base::sync_with_stdio(false);
+#define cde cin.tie(NULL);cout.tie(NULL);
+#define all(x) x.begin(), x.end()
+#define pii pair<int,int>
+#define F first
+#define ll long long
+#define ld long double
+#define S second
+#define mp make_pair
+#define pb push_back
+#define in insert
+#define endl '\n'
 
-MOD = 1_000_000_007
-BASE = 11
+using namespace std;
 
+const ll N = 2e5 + 17;
+const ll inf = 1e9 + 7;
+const ll mod = 1e9 + 7;
 
-def get_hash(s: str) -> int:
-    h = 0
-    p = 1
-    for c in s:
-        h = (h + (ord(c) - 47) * p) % MOD
-        p = (p * BASE) % MOD
-    return h
+vector<string> v;
+unordered_set<string> st;
 
+string hashing(const string &s) {
+    ll h = 0, p = 1;
+    for (char c : s) {
+        h = (h + ((c - 47) * p) % mod) % mod;
+        p = (p * 11) % mod;
+    }
+    return to_string(h);
+}
 
+void solve(){
+    abc cde
 
-n = int(input())
-v = []
-st = set()
-for _ in range(2 * n):
-    s = input().strip()
-    v.append(s)
-    st.add(s)
+    int n; string s;
 
-cnt = 0
-for s in v:
-    if cnt == n:
-        break
-    hs = str(get_hash(s))
-    if hs in st:
-        print(f'Hash of string "{s}" is {hs}')
-        cnt += 1
+    cin >> n;
+    for(int i = 1; i <= n * 2; i++){
+        cin >> s;
+        v.push_back(s);
+        st.insert(s);
+    }
+
+    int cnt = 0;
+
+    for(int i = 0; i < v.size(); i++){
+        if(cnt == n) break;
+        string hs = hashing(v[i]);
+        if(st.find(hs) != st.end()){
+            cout << "Hash of string \"" << v[i] << "\"" << " is " << hs << endl;
+            cnt++;
+        }
+    }
+}
+
+signed main() {
+
+    abc cde
+
+    int tt = 1;
+
+    //cin >> tt;
+
+    while(tt--){
+
+        solve();
+
+    }
+
+    return 0;
+}
