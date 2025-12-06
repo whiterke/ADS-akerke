@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+#define ll long long
+
+using namespace std;
+
+
+vector<string> finding(vector<string>&elem,string txt) 
+{
+     vector<string>out;  
+     int max_freq = 0;
+
+    for(int i = 0;i < elem.size();++i) {
+        string substring = elem[i];
+        string s = substring + "#" + txt;
+       vector<int>right(s.size());
+     right[0] = 0;
+     int k;
+
+    for(int j = 1;j < s.size();j++) {
+        k = right[j - 1];
+        
+        while(k > 0) {
+          if(s[j] == s[k]) {
+            k++;
+            break;
+          } 
+          k = right[k-1];
+        }
+
+        if(k == 0 && s[j] == s[k]) {
+            k = 1;
+        }
+    right[j] = k;
+    }
+
+    int cnt = 0;
+    for(int l = 0;l < right.size();l++) {
+        if(right[l] == substring.size()) cnt++;
+    }
+   
+    if(cnt == max_freq) {
+        out.push_back(substring);
+    }
+     else if(cnt > max_freq) 
+     {
+        max_freq = cnt;
+        out.clear();
+        out.push_back(to_string(max_freq));
+        out.push_back(substring);
+     }
+}
+return out;
+}
+
+
+int main() {
+
+int mark;
+
+vector<string>z;
+vector<string>output;
+
+while(cin >> mark  && mark != 0) {
+   
+   if(mark > 0) {
+    z.clear();
+     for(int i = 0;i < mark;i++) {
+        string t;
+        cin >> t;
+        z.push_back(t);
+     }
+     string original;
+     cin >> original;
+     output = finding(z,original);
+    }
+
+    for(string x : output) {
+        cout << x <<endl;
+     }
+}
+
+}
